@@ -11,17 +11,27 @@ Consider a 2D design domain discretized into a grid of $N_x \times N_y$ rectangu
 Let $x_i \in [x_{\min}, 1]$ be the design variable representing the physical density of finite element $i$, where $x_i = 1$ denotes solid material, $x_i = x_{\min}$ (a small positive value, e.g., $10^{-9}$) represents a void (to prevent the global stiffness matrix from becoming singular), and $\mathbf{x} = [x_1, x_2, \dots, x_N]^T$ is the vector of all element densities.
 
 Under the **SIMP** model, the Young's modulus $E_i$ of element $i$ is interpolated as:
-$$E_i(x_i) = E_{\min} + x_i^p (E_0 - E_{\min})$$
+```math
+E_i(x_i) = E_{\min} + x_i^p (E_0 - E_{\min})
+```
 where $E_0$ is the modulus of the solid material, $E_{\min}$ is the modulus of the void, and $p \ge 1$ is the penalization power. This elasticity interpolation scales the element stiffness matrix:
-$$\mathbf{K}_i(x_i) = E_i(x_i) \mathbf{K}_0$$
+```math
+\mathbf{K}_i(x_i) = E_i(x_i) \mathbf{K}_0
+```
 where $\mathbf{K}_0$ is the baseline stiffness matrix of a solid 4-node quad element. The global stiffness matrix $\mathbf{K}(\mathbf{x})$ is assembled by summing the contributions of all element stiffness matrices:
-$$\mathbf{K}(\mathbf{x}) = \sum_{i=1}^N \mathbf{K}_i(x_i)$$
+```math
+\mathbf{K}(\mathbf{x}) = \sum_{i=1}^N \mathbf{K}_i(x_i)
+```
 
 ### Question 1: Physical Interpretation of Compliance
 The compliance of the structure is defined as:
-$$C(\mathbf{x}) = \mathbf{f}^T \mathbf{u}$$
+```math
+C(\mathbf{x}) = \mathbf{f}^T \mathbf{u}
+```
 where $\mathbf{u}$ is the nodal displacement vector obtained from the static equilibrium equation:
-$$\mathbf{K}(\mathbf{x}) \mathbf{u} = \mathbf{f}$$
+```math
+\mathbf{K}(\mathbf{x}) \mathbf{u} = \mathbf{f}
+```
 1. Show that the compliance can also be written as $C(\mathbf{x}) = \mathbf{u}^T \mathbf{K}(\mathbf{x}) \mathbf{u}$.
 2. Explain the physical meaning of compliance. What does minimizing compliance correspond to? Why is it twice the total strain energy of the structure?
 
@@ -65,7 +75,9 @@ At each iteration of the optimizer, we must solve $\mathbf{K}(\mathbf{x}) \mathb
 To update the design variables using gradient-based algorithms (like MMA), we need the sensitivities (derivatives) of the compliance w.r.t the densities, i.e., $\frac{\partial C}{\partial x_i}$.
 1. Suppose we have $N$ elements. If we compute these derivatives using finite differences (e.g., perturbing each $x_i$ by $\epsilon$ and re-solving the equilibrium equations), how many times must we solve the sparse linear system of equations per optimization step?
 2. Show that by using the **adjoint method**, we can obtain all $N$ derivatives by solving the linear system **exactly once**. Prove that the compliance gradient is:
-   $$\frac{\partial C}{\partial x_i} = - \mathbf{u}_i^T \frac{\partial \mathbf{K}_i}{\partial x_i} \mathbf{u}_i = - p x_i^{p-1} (E_0 - E_{\min}) \mathbf{u}_i^T \mathbf{K}_0 \mathbf{u}_i$$
+   ```math
+\frac{\partial C}{\partial x_i} = - \mathbf{u}_i^T \frac{\partial \mathbf{K}_i}{\partial x_i} \mathbf{u}_i = - p x_i^{p-1} (E_0 - E_{\min}) \mathbf{u}_i^T \mathbf{K}_0 \mathbf{u}_i
+```
    where $\mathbf{u}_i$ is the vector of displacements of the 8 degrees of freedom associated with element $i$.
    *(Hint: Start from $C = \mathbf{f}^T \mathbf{u}$, differentiate with respect to $x_i$, and substitute the derivative of $\mathbf{K}\mathbf{u} = \mathbf{f}$.)*
 

@@ -9,28 +9,38 @@ This document provides detailed analytical answers to the theoretical questions 
 ### Question 1: Physical Interpretation of Compliance
 1. **Derivation:**
    We are given the compliance definition $C(\mathbf{x}) = \mathbf{f}^T \mathbf{u}$ and the static equilibrium equation:
-   $$\mathbf{K}(\mathbf{x}) \mathbf{u} = \mathbf{f}$$
+   ```math
+\mathbf{K}(\mathbf{x}) \mathbf{u} = \mathbf{f}
+```
    Since the external load vector $\mathbf{f}$ is equal to $\mathbf{K}(\mathbf{x}) \mathbf{u}$, we can substitute this into the compliance equation:
-   $$C(\mathbf{x}) = (\mathbf{K}(\mathbf{x}) \mathbf{u})^T \mathbf{u} = \mathbf{u}^T \mathbf{K}(\mathbf{x})^T \mathbf{u}$$
+   ```math
+C(\mathbf{x}) = (\mathbf{K}(\mathbf{x}) \mathbf{u})^T \mathbf{u} = \mathbf{u}^T \mathbf{K}(\mathbf{x})^T \mathbf{u}
+```
    In linear elasticity, the global stiffness matrix $\mathbf{K}(\mathbf{x})$ is symmetric because it is assembled from symmetric element stiffness matrices ($\mathbf{K}_i^T = \mathbf{K}_i$). Thus, $\mathbf{K}(\mathbf{x})^T = \mathbf{K}(\mathbf{x})$.
    Substituting this symmetry property yields:
-   $$C(\mathbf{x}) = \mathbf{u}^T \mathbf{K}(\mathbf{x}) \mathbf{u}$$
+   ```math
+C(\mathbf{x}) = \mathbf{u}^T \mathbf{K}(\mathbf{x}) \mathbf{u}
+```
 
 2. **Physical Meaning:**
    - **Compliance** is a measure of the overall structural deformability under the applied load. It represents the external work done by the applied forces: $W = \mathbf{f}^T \mathbf{u}$.
    - **Stiffness** is the inverse of compliance. Minimizing compliance is mathematically identical to maximizing the structural stiffness under the given loading conditions.
    - The total strain energy stored in an elastic structure is given by:
-     $$U_e = \frac{1}{2} \mathbf{u}^T \mathbf{K}(\mathbf{x}) \mathbf{u}$$
+     ```math
+U_e = \frac{1}{2} \mathbf{u}^T \mathbf{K}(\mathbf{x}) \mathbf{u}
+```
      Comparing this to compliance, we see that $C(\mathbf{x}) = 2 U_e$. Compliance is exactly twice the total elastic strain energy of the structure.
 
 ### Question 2: Optimization Setup
 The nested formulation of the topology optimization problem is written as:
-$$\begin{aligned}
+```math
+\begin{aligned}
 \min_{\mathbf{x}} \quad & C(\mathbf{x}) = \mathbf{f}^T \mathbf{u}(\mathbf{x}) \\
 \text{subject to} \quad & \mathbf{K}(\mathbf{x}) \mathbf{u}(\mathbf{x}) = \mathbf{f} \\
 & \frac{\sum_{i=1}^N x_i v_i}{V_0} \le f \\
 & x_{\min} \le x_i \le 1, \quad i = 1, \dots, N
-\end{aligned}$$
+\end{aligned}
+```
 
 Where:
 - **Objective function:** Structural compliance $C(\mathbf{x}) = \mathbf{f}^T \mathbf{u}(\mathbf{x})$.
@@ -47,13 +57,17 @@ Where:
 1. **Linearity of $\mathbf{K}(\mathbf{x})$:**
    With $p=1$ and $E_{\min}=0$, the element Young's modulus is $E_i(x_i) = x_i E_0$.
    The global stiffness matrix is the sum of element matrices:
-   $$\mathbf{K}(\mathbf{x}) = \sum_{i=1}^N \mathbf{K}_i(x_i) = \sum_{i=1}^N x_i E_0 \mathbf{K}_0^{(i)}$$
+   ```math
+\mathbf{K}(\mathbf{x}) = \sum_{i=1}^N \mathbf{K}_i(x_i) = \sum_{i=1}^N x_i E_0 \mathbf{K}_0^{(i)}
+```
    where $\mathbf{K}_0^{(i)}$ is the baseline solid element stiffness matrix expanded to global dimensions. Since $\mathbf{K}(\mathbf{x})$ is a linear combination of the scalars $x_i$, it is a linear (affine) function of $\mathbf{x}$.
 
 2. **Convexity of Compliance:**
    Let $g(\mathbf{A}) = \mathbf{f}^T \mathbf{A}^{-1} \mathbf{f}$ be a function mapping a symmetric positive-definite (SPD) matrix $\mathbf{A}$ to a scalar.
    The function $g(\mathbf{A})$ is convex on the cone of SPD matrices. To see this, we look at the Hessian or show that for any $\mathbf{A}, \mathbf{B} \succ 0$ and $\theta \in [0, 1]$:
-   $$\theta \mathbf{f}^T \mathbf{A}^{-1} \mathbf{f} + (1-\theta) \mathbf{f}^T \mathbf{B}^{-1} \mathbf{f} \ge \mathbf{f}^T (\theta \mathbf{A} + (1-\theta) \mathbf{B})^{-1} \mathbf{f}$$
+   ```math
+\theta \mathbf{f}^T \mathbf{A}^{-1} \mathbf{f} + (1-\theta) \mathbf{f}^T \mathbf{B}^{-1} \mathbf{f} \ge \mathbf{f}^T (\theta \mathbf{A} + (1-\theta) \mathbf{B})^{-1} \mathbf{f}
+```
    Since the global stiffness matrix $\mathbf{K}(\mathbf{x})$ is a linear function of $\mathbf{x}$, and for $\mathbf{x} > \mathbf{0}$ the matrix $\mathbf{K}(\mathbf{x})$ is SPD, the composition $C(\mathbf{x}) = g(\mathbf{K}(\mathbf{x}))$ of the convex function $g$ with the linear function $\mathbf{K}$ is convex in $\mathbf{x}$.
 
 3. **Overall Convexity:**
@@ -91,7 +105,9 @@ Where:
 1. **Degrees of Freedom:**
    For $100 \times 100$ elements, there are $101 \times 101 = 10,201$ nodes.
    Since each node has 2 degrees of freedom (horizontal and vertical displacements), the system size is:
-   $$\text{DOFs} = 2 \times 10,201 = 20,402 \text{ equations}$$
+   ```math
+\text{DOFs} = 2 \times 10,201 = 20,402 \text{ equations}
+```
 
 2. **Computational Complexity:**
    - **Dense Solvers ($O(M^3)$):** Solving a system of $M = 20,402$ equations using a dense LU/Cholesky solver requires $M^3 \approx 8.5 \times 10^{12}$ floating-point operations. Doing this on every optimization iteration is computationally prohibitive.
@@ -100,27 +116,45 @@ Where:
 ### Question 6: Adjoint Sensitivity Analysis
 1. **Finite Differences:**
    To compute the gradient of compliance w.r.t $N$ density variables using finite differences:
-   $$\frac{\partial C}{\partial x_i} \approx \frac{C(\mathbf{x} + \epsilon \mathbf{e}_i) - C(\mathbf{x})}{\epsilon}$$
+   ```math
+\frac{\partial C}{\partial x_i} \approx \frac{C(\mathbf{x} + \epsilon \mathbf{e}_i) - C(\mathbf{x})}{\epsilon}
+```
    We must perturb each element $i$ and solve the equilibrium equations. This requires **$N$ sparse matrix solves** per optimization step. For $N = 10,000$, this is impossible to run.
 
 2. **Adjoint Derivation:**
    Differentiating the compliance objective $C = \mathbf{f}^T \mathbf{u}$ w.r.t $x_i$:
-   $$\frac{d C}{d x_i} = \mathbf{f}^T \frac{\partial \mathbf{u}}{\partial x_i}$$
+   ```math
+\frac{d C}{d x_i} = \mathbf{f}^T \frac{\partial \mathbf{u}}{\partial x_i}
+```
    Differentiating the state equation $\mathbf{K}\mathbf{u} = \mathbf{f}$ w.r.t $x_i$ (where $\mathbf{f}$ is constant):
-   $$\frac{\partial \mathbf{K}}{\partial x_i} \mathbf{u} + \mathbf{K} \frac{\partial \mathbf{u}}{\partial x_i} = \mathbf{0} \implies \frac{\partial \mathbf{u}}{\partial x_i} = - \mathbf{K}^{-1} \frac{\partial \mathbf{K}}{\partial x_i} \mathbf{u}$$
+   ```math
+\frac{\partial \mathbf{K}}{\partial x_i} \mathbf{u} + \mathbf{K} \frac{\partial \mathbf{u}}{\partial x_i} = \mathbf{0} \implies \frac{\partial \mathbf{u}}{\partial x_i} = - \mathbf{K}^{-1} \frac{\partial \mathbf{K}}{\partial x_i} \mathbf{u}
+```
    Substitute this back into the compliance derivative:
-   $$\frac{d C}{d x_i} = - \mathbf{f}^T \mathbf{K}^{-1} \frac{\partial \mathbf{K}}{\partial x_i} \mathbf{u}$$
+   ```math
+\frac{d C}{d x_i} = - \mathbf{f}^T \mathbf{K}^{-1} \frac{\partial \mathbf{K}}{\partial x_i} \mathbf{u}
+```
    Define the adjoint variable $\boldsymbol{\lambda}$ as the solution to:
-   $$\mathbf{K}^T \boldsymbol{\lambda} = \mathbf{f}$$
+   ```math
+\mathbf{K}^T \boldsymbol{\lambda} = \mathbf{f}
+```
    Since $\mathbf{K}$ is symmetric, $\mathbf{K}^T = \mathbf{K}$, which implies $\boldsymbol{\lambda} = \mathbf{K}^{-1} \mathbf{f} = \mathbf{u}$ (the problem is self-adjoint).
    Substituting $\boldsymbol{\lambda} = \mathbf{u}$ yields:
-   $$\frac{d C}{d x_i} = - \mathbf{u}^T \frac{\partial \mathbf{K}}{\partial x_i} \mathbf{u}$$
+   ```math
+\frac{d C}{d x_i} = - \mathbf{u}^T \frac{\partial \mathbf{K}}{\partial x_i} \mathbf{u}
+```
    Since $\mathbf{K}(\mathbf{x}) = \sum_j \mathbf{K}_j(x_j)$, the derivative $\frac{\partial \mathbf{K}}{\partial x_i}$ is only non-zero for element $i$:
-   $$\frac{d C}{d x_i} = - \mathbf{u}_i^T \frac{\partial \mathbf{K}_i}{\partial x_i} \mathbf{u}_i$$
+   ```math
+\frac{d C}{d x_i} = - \mathbf{u}_i^T \frac{\partial \mathbf{K}_i}{\partial x_i} \mathbf{u}_i
+```
    Using SIMP interpolation $\mathbf{K}_i(x_i) = \left( E_{\min} + x_i^p(E_0 - E_{\min}) \right) \mathbf{K}_0$:
-   $$\frac{\partial \mathbf{K}_i}{\partial x_i} = p x_i^{p-1} (E_0 - E_{\min}) \mathbf{K}_0$$
+   ```math
+\frac{\partial \mathbf{K}_i}{\partial x_i} = p x_i^{p-1} (E_0 - E_{\min}) \mathbf{K}_0
+```
    Substituting this:
-   $$\frac{\partial C}{\partial x_i} = - p x_i^{p-1} (E_0 - E_{\min}) \mathbf{u}_i^T \mathbf{K}_0 \mathbf{u}_i$$
+   ```math
+\frac{\partial C}{\partial x_i} = - p x_i^{p-1} (E_0 - E_{\min}) \mathbf{u}_i^T \mathbf{K}_0 \mathbf{u}_i
+```
 
    **Efficiency:** The adjoint method only requires **1 sparse solve** per iteration (to find $\mathbf{u}$). Once $\mathbf{u}$ is known, all $N$ gradients are calculated via cheap local dot products, reducing the gradient computation time to almost zero.
 
