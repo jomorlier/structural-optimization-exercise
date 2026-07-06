@@ -12,11 +12,11 @@ This document provides detailed analytical answers to the theoretical questions 
    ```math
 \mathbf{K}(\mathbf{x}) \mathbf{u} = \mathbf{f}
 ```
-   Since the external load vector $\mathbf{f}$ is equal to $\mathbf{K}(\mathbf{x}) \mathbf{u}$, we can substitute this into the compliance equation:
+   Since the external load vector $\mathbf{f}$is equal to$\mathbf{K}(\mathbf{x}) \mathbf{u}$, we can substitute this into the compliance equation:
    ```math
 C(\mathbf{x}) = (\mathbf{K}(\mathbf{x}) \mathbf{u})^T \mathbf{u} = \mathbf{u}^T \mathbf{K}(\mathbf{x})^T \mathbf{u}
 ```
-   In linear elasticity, the global stiffness matrix $\mathbf{K}(\mathbf{x})$ is symmetric because it is assembled from symmetric element stiffness matrices ($\mathbf{K}_i^T = \mathbf{K}_i$). Thus, $\mathbf{K}(\mathbf{x})^T = \mathbf{K}(\mathbf{x})$.
+   In linear elasticity, the global stiffness matrix $\mathbf{K}(\mathbf{x})$is symmetric because it is assembled from symmetric element stiffness matrices ($\mathbf{K}_i^T = \mathbf{K}_i$). Thus,$\mathbf{K}(\mathbf{x})^T = \mathbf{K}(\mathbf{x})$.
    Substituting this symmetry property yields:
    ```math
 C(\mathbf{x}) = \mathbf{u}^T \mathbf{K}(\mathbf{x}) \mathbf{u}
@@ -46,7 +46,7 @@ Where:
 - **Objective function:** Structural compliance $C(\mathbf{x}) = \mathbf{f}^T \mathbf{u}(\mathbf{x})$.
 - **Design variables:** Element densities $\mathbf{x} = [x_1, \dots, x_N]^T$.
 - **Lower/Upper bounds:** $x_i \in [x_{\min}, 1]$.
-- **Physical constraint (equality):** State equation $\mathbf{K}(\mathbf{x}) \mathbf{u} = \mathbf{f}$ (implicitly defines $\mathbf{u}(\mathbf{x})$).
+- **Physical constraint (equality):** State equation $\mathbf{K}(\mathbf{x}) \mathbf{u} = \mathbf{f}$(implicitly defines$\mathbf{u}(\mathbf{x})$).
 - **Resource constraint (inequality):** Total volume fraction limit $\frac{V(\mathbf{x})}{V_0} \le f$.
 
 ---
@@ -55,47 +55,47 @@ Where:
 
 ### Question 3: The Case $p = 1$ (Linear Interpolation)
 1. **Linearity of $\mathbf{K}(\mathbf{x})$:**
-   With $p=1$ and $E_{\min}=0$, the element Young's modulus is $E_i(x_i) = x_i E_0$.
+   With $p=1$and$E_{\min}=0$, the element Young's modulus is$E_i(x_i) = x_i E_0$.
    The global stiffness matrix is the sum of element matrices:
    ```math
 \mathbf{K}(\mathbf{x}) = \sum_{i=1}^N \mathbf{K}_i(x_i) = \sum_{i=1}^N x_i E_0 \mathbf{K}_0^{(i)}
 ```
-   where $\mathbf{K}_0^{(i)}$ is the baseline solid element stiffness matrix expanded to global dimensions. Since $\mathbf{K}(\mathbf{x})$ is a linear combination of the scalars $x_i$, it is a linear (affine) function of $\mathbf{x}$.
+   where $\mathbf{K}_0^{(i)}$is the baseline solid element stiffness matrix expanded to global dimensions. Since$\mathbf{K}(\mathbf{x})$is a linear combination of the scalars$x_i$, it is a linear (affine) function of$\mathbf{x}$.
 
 2. **Convexity of Compliance:**
-   Let $g(\mathbf{A}) = \mathbf{f}^T \mathbf{A}^{-1} \mathbf{f}$ be a function mapping a symmetric positive-definite (SPD) matrix $\mathbf{A}$ to a scalar.
-   The function $g(\mathbf{A})$ is convex on the cone of SPD matrices. To see this, we look at the Hessian or show that for any $\mathbf{A}, \mathbf{B} \succ 0$ and $\theta \in [0, 1]$:
+   Let $g(\mathbf{A}) = \mathbf{f}^T \mathbf{A}^{-1} \mathbf{f}$be a function mapping a symmetric positive-definite (SPD) matrix$\mathbf{A}$ to a scalar.
+   The function $g(\mathbf{A})$is convex on the cone of SPD matrices. To see this, we look at the Hessian or show that for any$\mathbf{A}, \mathbf{B} \succ 0$and$\theta \in [0, 1]$:
    ```math
 \theta \mathbf{f}^T \mathbf{A}^{-1} \mathbf{f} + (1-\theta) \mathbf{f}^T \mathbf{B}^{-1} \mathbf{f} \ge \mathbf{f}^T (\theta \mathbf{A} + (1-\theta) \mathbf{B})^{-1} \mathbf{f}
 ```
-   Since the global stiffness matrix $\mathbf{K}(\mathbf{x})$ is a linear function of $\mathbf{x}$, and for $\mathbf{x} > \mathbf{0}$ the matrix $\mathbf{K}(\mathbf{x})$ is SPD, the composition $C(\mathbf{x}) = g(\mathbf{K}(\mathbf{x}))$ of the convex function $g$ with the linear function $\mathbf{K}$ is convex in $\mathbf{x}$.
+   Since the global stiffness matrix $\mathbf{K}(\mathbf{x})$is a linear function of$\mathbf{x}$, and for$\mathbf{x} > \mathbf{0}$the matrix$\mathbf{K}(\mathbf{x})$is SPD, the composition$C(\mathbf{x}) = g(\mathbf{K}(\mathbf{x}))$of the convex function$g$with the linear function$\mathbf{K}$is convex in$\mathbf{x}$.
 
 3. **Overall Convexity:**
-   In the nested formulation, the variables $\mathbf{u}$ are eliminated by writing them as $\mathbf{u}(\mathbf{x}) = \mathbf{K}(\mathbf{x})^{-1} \mathbf{f}$.
+   In the nested formulation, the variables $\mathbf{u}$are eliminated by writing them as$\mathbf{u}(\mathbf{x}) = \mathbf{K}(\mathbf{x})^{-1} \mathbf{f}$.
    - The objective $C(\mathbf{x})$ is convex.
    - The volume constraint $\frac{1}{V_0} \sum_i x_i v_i - f \le 0$ is linear, which is convex.
    - The bound constraints $x_{\min} \le x_i \le 1$ define a convex set.
    
    Therefore, in the **nested formulation**, the optimization problem is **convex**.
-   *Note: If we do not eliminate $\mathbf{u}$ and optimize over both $\mathbf{x}$ and $\mathbf{u}$ simultaneously, the equilibrium equation $\mathbf{K}(\mathbf{x})\mathbf{u} = \mathbf{f}$ acts as an equality constraint. Since $\mathbf{K}(\mathbf{x})\mathbf{u}$ is bilinear in $\mathbf{x}$ and $\mathbf{u}$, this equality constraint is non-affine, making the simultaneous formulation non-convex.*
+   *Note: If we do not eliminate $\mathbf{u}$and optimize over both$\mathbf{x}$and$\mathbf{u}$simultaneously, the equilibrium equation$\mathbf{K}(\mathbf{x})\mathbf{u} = \mathbf{f}$acts as an equality constraint. Since$\mathbf{K}(\mathbf{x})\mathbf{u}$is bilinear in$\mathbf{x}$and$\mathbf{u}$, this equality constraint is non-affine, making the simultaneous formulation non-convex.*
 
 ### Question 4: The Case $p = 3$ (SIMP Penalization)
 1. **Why we use $p = 3$:**
-   If we solve the convex case ($p=1$), the optimizer allocates intermediate densities (porous material, e.g., $x_i = 0.5$) over large regions. Such structures are extremely expensive or impossible to manufacture.
-   By setting $p = 3$, we penalize intermediate densities. For example, at $x_i = 0.5$:
+   If we solve the convex case ($p=1$), the optimizer allocates intermediate densities (porous material, e.g.,$x_i = 0.5$) over large regions. Such structures are extremely expensive or impossible to manufacture.
+   By setting $p = 3$, we penalize intermediate densities. For example, at$x_i = 0.5$:
    - The element consumes $50\%$ of its solid volume.
    - Its stiffness is only $0.5^3 = 12.5\%$ of its solid stiffness.
-   This interpolation makes intermediate densities highly inefficient. The optimizer is forced to drive densities towards the bounds ($x_i \approx 0$ or $x_i = 1$) to get maximum stiffness per unit mass, resulting in clean solid-void designs.
+   This interpolation makes intermediate densities highly inefficient. The optimizer is forced to drive densities towards the bounds ($x_i \approx 0$or$x_i = 1$) to get maximum stiffness per unit mass, resulting in clean solid-void designs.
 
 2. **Non-Convexity & Implications:**
-   For $p > 1$, the Young's modulus interpolation is non-convex, which makes the objective function $C(\mathbf{x})$ non-convex.
+   For $p > 1$, the Young's modulus interpolation is non-convex, which makes the objective function$C(\mathbf{x})$ non-convex.
    - The optimization landscape contains many local minima.
    - Gradient-based optimization algorithms (like MMA) will converge to a local minimum.
    - The final structural design is sensitive to the initial guess, mesh size, filter parameters, and the optimization path.
 
 3. **Continuation Methods:**
-   A continuation method solves a sequence of optimization problems where $p$ is gradually increased (e.g., $p = 1.0 \to 1.5 \to 2.0 \to 3.0$).
-   By starting with $p=1$, the algorithm solves a convex problem first to find the optimal global distribution of stiffness. As $p$ is incrementally raised, the design is gradually forced to become discrete, preventing the optimizer from getting trapped in poor local minima early in the process.
+   A continuation method solves a sequence of optimization problems where $p$is gradually increased (e.g.,$p = 1.0 \to 1.5 \to 2.0 \to 3.0$).
+   By starting with $p=1$, the algorithm solves a convex problem first to find the optimal global distribution of stiffness. As$p$ is incrementally raised, the design is gradually forced to become discrete, preventing the optimizer from getting trapped in poor local minima early in the process.
 
 ---
 
@@ -103,15 +103,15 @@ Where:
 
 ### Question 5: Dense vs. Sparse Solvers
 1. **Degrees of Freedom:**
-   For $100 \times 100$ elements, there are $101 \times 101 = 10,201$ nodes.
+   For $100 \times 100$elements, there are$101 \times 101 = 10,201$ nodes.
    Since each node has 2 degrees of freedom (horizontal and vertical displacements), the system size is:
    ```math
 \text{DOFs} = 2 \times 10,201 = 20,402 \text{ equations}
 ```
 
 2. **Computational Complexity:**
-   - **Dense Solvers ($O(M^3)$):** Solving a system of $M = 20,402$ equations using a dense LU/Cholesky solver requires $M^3 \approx 8.5 \times 10^{12}$ floating-point operations. Doing this on every optimization iteration is computationally prohibitive.
-   - **Sparse Solvers ($O(M^{1.5})$ to $O(M^2)$):** In finite element grids, nodes only interact with neighboring nodes. The stiffness matrix is highly sparse and banded (only $0.05\%$ of entries are non-zero). Direct sparse solvers (like CHOLMOD or SuperLU) use graph-reordering techniques to minimize fill-in, solving the system in a fraction of a second.
+   - **Dense Solvers ($O(M^3)$):** Solving a system of$M = 20,402$equations using a dense LU/Cholesky solver requires$M^3 \approx 8.5 \times 10^{12}$ floating-point operations. Doing this on every optimization iteration is computationally prohibitive.
+   - **Sparse Solvers ($O(M^{1.5})$to$O(M^2)$):** In finite element grids, nodes only interact with neighboring nodes. The stiffness matrix is highly sparse and banded (only$0.05\%$ of entries are non-zero). Direct sparse solvers (like CHOLMOD or SuperLU) use graph-reordering techniques to minimize fill-in, solving the system in a fraction of a second.
 
 ### Question 6: Adjoint Sensitivity Analysis
 1. **Finite Differences:**
@@ -119,14 +119,14 @@ Where:
    ```math
 \frac{\partial C}{\partial x_i} \approx \frac{C(\mathbf{x} + \epsilon \mathbf{e}_i) - C(\mathbf{x})}{\epsilon}
 ```
-   We must perturb each element $i$ and solve the equilibrium equations. This requires **$N$ sparse matrix solves** per optimization step. For $N = 10,000$, this is impossible to run.
+   We must perturb each element $i$and solve the equilibrium equations. This requires **$N$sparse matrix solves** per optimization step. For$N = 10,000$, this is impossible to run.
 
 2. **Adjoint Derivation:**
-   Differentiating the compliance objective $C = \mathbf{f}^T \mathbf{u}$ w.r.t $x_i$:
+   Differentiating the compliance objective $C = \mathbf{f}^T \mathbf{u}$w.r.t$x_i$:
    ```math
 \frac{d C}{d x_i} = \mathbf{f}^T \frac{\partial \mathbf{u}}{\partial x_i}
 ```
-   Differentiating the state equation $\mathbf{K}\mathbf{u} = \mathbf{f}$ w.r.t $x_i$ (where $\mathbf{f}$ is constant):
+   Differentiating the state equation $\mathbf{K}\mathbf{u} = \mathbf{f}$w.r.t$x_i$(where$\mathbf{f}$ is constant):
    ```math
 \frac{\partial \mathbf{K}}{\partial x_i} \mathbf{u} + \mathbf{K} \frac{\partial \mathbf{u}}{\partial x_i} = \mathbf{0} \implies \frac{\partial \mathbf{u}}{\partial x_i} = - \mathbf{K}^{-1} \frac{\partial \mathbf{K}}{\partial x_i} \mathbf{u}
 ```
@@ -138,12 +138,12 @@ Where:
    ```math
 \mathbf{K}^T \boldsymbol{\lambda} = \mathbf{f}
 ```
-   Since $\mathbf{K}$ is symmetric, $\mathbf{K}^T = \mathbf{K}$, which implies $\boldsymbol{\lambda} = \mathbf{K}^{-1} \mathbf{f} = \mathbf{u}$ (the problem is self-adjoint).
+   Since $\mathbf{K}$is symmetric,$\mathbf{K}^T = \mathbf{K}$, which implies$\boldsymbol{\lambda} = \mathbf{K}^{-1} \mathbf{f} = \mathbf{u}$ (the problem is self-adjoint).
    Substituting $\boldsymbol{\lambda} = \mathbf{u}$ yields:
    ```math
 \frac{d C}{d x_i} = - \mathbf{u}^T \frac{\partial \mathbf{K}}{\partial x_i} \mathbf{u}
 ```
-   Since $\mathbf{K}(\mathbf{x}) = \sum_j \mathbf{K}_j(x_j)$, the derivative $\frac{\partial \mathbf{K}}{\partial x_i}$ is only non-zero for element $i$:
+   Since $\mathbf{K}(\mathbf{x}) = \sum_j \mathbf{K}_j(x_j)$, the derivative$\frac{\partial \mathbf{K}}{\partial x_i}$is only non-zero for element$i$:
    ```math
 \frac{d C}{d x_i} = - \mathbf{u}_i^T \frac{\partial \mathbf{K}_i}{\partial x_i} \mathbf{u}_i
 ```
@@ -156,7 +156,7 @@ Where:
 \frac{\partial C}{\partial x_i} = - p x_i^{p-1} (E_0 - E_{\min}) \mathbf{u}_i^T \mathbf{K}_0 \mathbf{u}_i
 ```
 
-   **Efficiency:** The adjoint method only requires **1 sparse solve** per iteration (to find $\mathbf{u}$). Once $\mathbf{u}$ is known, all $N$ gradients are calculated via cheap local dot products, reducing the gradient computation time to almost zero.
+   **Efficiency:** The adjoint method only requires **1 sparse solve** per iteration (to find $\mathbf{u}$). Once$\mathbf{u}$is known, all$N$ gradients are calculated via cheap local dot products, reducing the gradient computation time to almost zero.
 
 ### Question 7: Vectorization and NumPy's `einsum`
 1. **Shape of `u_selected`:** `(8, nely, nelx)`.
@@ -166,7 +166,7 @@ Where:
 
 2. **einsum Contractions:**
    - `ke_u = anp.einsum('ij,jkl->ikl', ke, u_selected)`:
-     Multiplies the $8 \times 8$ element stiffness matrix `ke` (indices `ij`) by the displacements `u_selected` (indices `jkl`) for all elements. The index `j` is contracted (summed over), yielding `ke_u` of shape `(8, nely, nelx)` (indices `ikl`). This represents $\mathbf{K}_0 \mathbf{u}_e$ for every element.
+     Multiplies the $8 \times 8$element stiffness matrix `ke` (indices `ij`) by the displacements `u_selected` (indices `jkl`) for all elements. The index `j` is contracted (summed over), yielding `ke_u` of shape `(8, nely, nelx)` (indices `ikl`). This represents$\mathbf{K}_0 \mathbf{u}_e$ for every element.
    - `ce = anp.einsum('ijk,ijk->jk', u_selected, ke_u)`:
      Performs an element-wise dot product between the displacements `u_selected` and the resulting forces `ke_u` along the degree-of-freedom axis (index `i`), yielding `ce` of shape `(nely, nelx)` (indices `jk`). This calculates the quadratic form $\mathbf{u}_e^T \mathbf{K}_0 \mathbf{u}_e$ for all elements simultaneously without any Python loops.
 
@@ -176,7 +176,7 @@ Where:
 
 2. **Sparsity Patterns and Adjoint reuse:**
    - The degree-of-freedom boundary mapping and sparsity locations (`x_list`, `y_list`) do not change across iterations. Caching these index setups saves significant index assembly time.
-   - **Crucially**, during each optimization step, we solve the system $\mathbf{K}\mathbf{u} = \mathbf{f}$ (forward pass) and then evaluate the automatic gradient which calls `solve_coo` again (backward pass) on the same stiffness matrix $\mathbf{K}$. By caching `_get_solver` with `maxsize=1`, the backward pass reuses the already factorized LU/Cholesky solver from the forward pass, making the gradient calculation practically free.
+   - **Crucially**, during each optimization step, we solve the system $\mathbf{K}\mathbf{u} = \mathbf{f}$(forward pass) and then evaluate the automatic gradient which calls `solve_coo` again (backward pass) on the same stiffness matrix$\mathbf{K}$. By caching `_get_solver` with `maxsize=1`, the backward pass reuses the already factorized LU/Cholesky solver from the forward pass, making the gradient calculation practically free.
 
 ---
 
