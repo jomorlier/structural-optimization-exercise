@@ -36,12 +36,12 @@ Write down the complete mathematical optimization problem for compliance minimiz
 
 ## 2. Convexity Analysis
 
-Convexity is a fundamental property of optimization problems. A optimization problem is convex if the objective function is convex, the inequality constraint functions are convex, and the equality constraint functions are affine. Convex problems have the nice property that any local minimum is a global minimum.
+Convexity is a fundamental property of optimization problems. An optimization problem is convex if the objective function is convex, the inequality constraint functions are convex, and the equality constraint functions are affine. Convex problems have the nice property that any local minimum is a global minimum.
 
 ### Question 3: The Case $p = 1$ (Linear Elasticity Interpolation)
 Suppose $p = 1$ and $E_{\min} = 0$. The Young's modulus is linear in $x_i$: $E_i(x_i) = x_i E_0$.
 1. Show that the global stiffness matrix $\mathbf{K}(\mathbf{x})$ is a linear function of $\mathbf{x}$.
-2. The compliance objective can be written as $C(\mathbf{x}) = \mathbf{f}^T \mathbf{K}(\mathbf{x})^{-1} \mathbf{f}$. Using the fact that the function $A \mapsto \mathbf{c}^T A^{-1} \mathbf{c}$ is convex on the set of symmetric positive-definite matrices $A$, prove that the compliance objective $C(\mathbf{x})$ is a convex function of $\mathbf{x}$ for $\mathbf{x} > \mathbf{0}$.
+2. The compliance objective can be written as $C(\mathbf{x}) = \mathbf{f}^T \mathbf{K}(\mathbf{x})^{-1} \mathbf{f}$. Using the fact that the function $\mathbf{A} \mapsto \mathbf{c}^T \mathbf{A}^{-1} \mathbf{c}$ is convex on the set of symmetric positive-definite matrices $\mathbf{A}$, prove that the compliance objective $C(\mathbf{x})$ is a convex function of $\mathbf{x}$ for $\mathbf{x} > \mathbf{0}$.
 3. Is the overall optimization problem convex when $p = 1$? Explain.
 
 ### Question 4: The Case $p = 3$ (SIMP Penalization)
@@ -82,7 +82,7 @@ Specifically:
 2. Explain the contractions performed by the two `einsum` calls.
 
 ### Question 8: Hashable LRU Caching
-In `stopt_240.py`, the author introduces a custom NumPy array LRU cache decorator:
+In `solution.py`, the author introduces a custom NumPy array LRU cache decorator:
 ```python
 @ndarray_safe_lru_cache(maxsize=1)
 def _get_solver(a_entries, a_indices, size, sym_pos):
